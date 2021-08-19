@@ -1,0 +1,65 @@
+replicaCount: 2
+
+image:
+  repository: adelka1009/homework2
+  pullPolicy: IfNotPresent
+  tag: "v2"
+
+imagePullSecrets: []
+nameOverride: ""
+fullnameOverride: ""
+
+serviceAccount:
+  # Specifies whether a service account should be created
+  create: true
+  # Annotations to add to the service account
+  annotations: {}
+  # The name of the service account to use.
+  # If not set and create is true, a name is generated using the fullname template
+  name: ""
+
+podAnnotations: {}
+
+podSecurityContext: {}
+# fsGroup: 2000
+
+securityContext: {}
+
+service:
+  type: NodePort
+  port: 9000
+  targetPort: 8080
+
+ingress:
+  enabled: true
+  className: ""
+  annotations: {nginx.ingress.kubernetes.io/rewrite-target: /$2}
+  hosts:
+    - host: arch.homework
+      paths: [ {pathType: Prefix, path: "/otusapp/adelya-galeeva($|/)(.*)"} ]
+  tls: []
+
+resources: {}
+
+autoscaling:
+  enabled: false
+  minReplicas: 1
+  maxReplicas: 100
+  targetCPUUtilizationPercentage: 80
+
+nodeSelector: {}
+
+tolerations: []
+
+affinity: {}
+
+postgresql:
+  enabled: true
+  fullnameOverride: postgresql
+  postgresqlDatabase: hw2_db
+  postgresqlUsername: adelya
+  postgresqlPassword: passwd
+  service:
+    type: NodePort
+    port: 5432
+

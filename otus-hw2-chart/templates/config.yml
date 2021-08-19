@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: otus-hw2-chart-config
+data:
+  APP_NAME: {{ .Release.Name }}
+  SPRING_DATASOURCE_URL: jdbc:postgresql://homework2-postgresql:5432/hw2_db
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: otus-hw2-chart-secret
+type: Opaque
+data:
+  SPRING_DATASOURCE_USERNAME: {{ .Values.postgresql.postgresqlUsername | b64enc | quote }}
+  SPRING_DATASOURCE_PASSWORD: {{ .Values.postgresql.postgresqlPassword | b64enc | quote }}

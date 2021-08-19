@@ -1,0 +1,23 @@
+spring:
+  application:
+    name: user-service
+  jpa:
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+        temp:
+          use_jdbc_metadata_defaults: false
+    generate-ddl: false
+    hibernate:
+      ddl-auto: validate
+    show-sql: false
+  datasource:
+    url: jdbc:postgresql://localhost:5432/testdb
+    username: adan
+    password: adan
+  liquibase:
+    change-log: classpath:db/migration/changelog.xml
+
+springdoc:
+  api-docs:
+    path: "/user/api-docs"
